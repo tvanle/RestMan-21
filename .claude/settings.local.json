@@ -11,7 +11,8 @@
       "Bash(if [ ! -d \"WebContent/WEB-INF/classes\" ])",
       "Bash(then mkdir -p WebContent/WEB-INF/classes)",
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
