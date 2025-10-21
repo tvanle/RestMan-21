@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch RestMan on Tomcat",
+            "request": "launch",
+            "mainClass": "",
+            "projectName": "RestMan",
+            "preLaunchTask": "build"
+        }
+    ]
+}
