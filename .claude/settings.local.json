@@ -1,7 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(java:*)",
+      "Bash(dir:*)",
+      "Bash(mvn:*)",
+      "Bash(if [ ! -d \"build/classes\" ])",
+      "Bash(then mkdir -p build/classes)",
+      "Bash(fi)",
+      "Bash(if [ ! -d \"WebContent/WEB-INF/classes\" ])",
+      "Bash(then mkdir -p WebContent/WEB-INF/classes)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

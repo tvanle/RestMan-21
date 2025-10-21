@@ -1,33 +1,111 @@
-# Hệ thống Quản lý Đăng ký Tín chỉ - Môn Phân tích Thiết kế Hệ thống
+# 🍴 RestMan - Hệ thống Quản lý Nhà hàng
 
-## Giới thiệu
+**Đề số 21**: Lê Văn Trọng
+**Môn học**: Phân tích Thiết kế Hệ thống Thông tin
+**Năm**: 2025
 
-[cite_start]Đây là dự án ví dụ cho môn học **Phân tích Thiết kế Hệ thống Thông tin**, chuyên ngành Công nghệ Phần mềm[cite: 1]. [cite_start]Dự án mô phỏng một hệ thống web quản lý đăng ký tín chỉ cho sinh viên tại một trường đại học[cite: 1483, 1811]. Hệ thống bao gồm các chức năng chính cho sinh viên, giảng viên, nhân viên giáo vụ, và quản lý.
+## 📖 Giới thiệu
 
-Mục tiêu chính của dự án là áp dụng các kiến thức về:
-* [cite_start]Quy trình phát triển phần mềm hướng đối tượng[cite: 107].
-* [cite_start]Phân tích và thu thập yêu cầu (Use Case, Kịch bản)[cite: 1455].
-* [cite_start]Thiết kế hệ thống sử dụng UML (Biểu đồ lớp, tuần tự, hoạt động,...)[cite: 536, 2727].
-* [cite_start]Thiết kế cơ sở dữ liệu quan hệ[cite: 2872].
-* [cite_start]Cài đặt hệ thống (Java Web)[cite: 3435].
-* [cite_start]Đảm bảo chất lượng phần mềm (Rà soát, Kiểm thử)[cite: 945].
+RestMan là hệ thống quản lý nhà hàng cho phép nhân viên quản lý, nhân viên bán hàng và khách hàng sử dụng. Hệ thống bao gồm các chức năng chính:
 
----
+### 🎯 Chức năng chính
 
-## Công nghệ sử dụng
+- **Nhân viên quản lý**: Xem thống kê món ăn, nguyên liệu, khách hàng, nhà cung cấp. Quản lý thông tin món ăn, lên menu combo
+- **Nhân viên kho**: Nhập nguyên liệu từ nhà cung cấp, quản lý thông tin nhà cung cấp
+- **Nhân viên bán hàng**: Nhận khách, gọi món, thanh toán, làm thẻ thành viên, xác nhận đặt bàn/đặt món
+- **Khách hàng**: Tìm kiếm món ăn, đặt bàn và đặt món trực tuyến
 
-* **Ngôn ngữ lập trình:** Java
-* **Web Technologies:** JSP, Servlets (ngầm định khi dùng JSP/Tomcat)
-* [cite_start]**Database:** MySQL [cite: 3449]
-* [cite_start]**Database Connectivity:** JDBC [cite: 3449]
-* [cite_start]**Web Server/Servlet Container:** Apache Tomcat 
-* [cite_start]**IDE:** Eclipse (được minh họa trong tài liệu) 
-* [cite_start]**Testing Framework:** JUnit [cite: 3437, 3725]
+### ✅ Modules đã triển khai
 
----
+1. **Module Tìm kiếm món ăn** (Khách hàng) - ✅ Hoàn thành
+2. **Module Nhập nguyên liệu** (Nhân viên kho) - ✅ Hoàn thành
 
-## Tổ chức Thư mục và Code
+## 🛠️ Công nghệ sử dụng
 
-[cite_start]Dự án được tổ chức theo cấu trúc dự án Web động trong Eclipse[cite: 3436, 3438].
+- **Ngôn ngữ lập trình:** Java 8+
+- **Web Technologies:** JSP, Servlets
+- **Database:** MySQL 8.0
+- **Database Connectivity:** JDBC
+- **Web Server:** Apache Tomcat 9
+- **IDE:** VSCode / Eclipse / IntelliJ IDEA
+- **Build Tool:** Maven (optional)
 
-. ├── Java Resources/ # Chứa mã nguồn Java và thư viện │ └── src/ # Thư mục gốc cho mã nguồn Java │ ├── dao/ # Data Access Objects - Lớp truy cập cơ sở dữ liệu │ │ ├── DAO.java # Lớp cơ sở, quản lý kết nối CSDL  │ │ ├── DangkihocDAO.java │ │ ├── KihocDAO.java │ │ ├── LichhocDAO.java │ │ ├── LophocphanDAO.java │ │ ├── MonhocKihocDAO.java │ │ ├── SinhvienKhoaDAO.java │ │ ├── ThanhvienDAO.java │ │ ├── TKHoclucDAO.java # DAO cho thống kê học lực │ │ ├── TKSinhvienDAO.java # DAO cho thống kê sinh viên  │ │ └── ... # Các lớp DAO khác │ ├── model/ # Lớp thực thể (Entities/POJOs)  │ │ ├── Thanhvien.java │ │ ├── Sinhvien.java │ │ ├── Giangvien.java │ │ ├── Dangkihoc.java │ │ ├── Kihoc.java │ │ ├── Khoa.java │ │ ├── Monhoc.java │ │ ├── Lophocphan.java │ │ ├── Lichhoc.java │ │ ├── Ketqua.java │ │ ├── Hoten.java │ │ ├── Diachi.java │ │ └── ... # Các lớp model khác │ └── unittest/ # Chứa các lớp kiểm thử đơn vị JUnit  │ └── TestDangkihocDAO.java │ └── ... # Các lớp Test khác │ └── Libraries/ # Thư viện ngoài (JAR files)  │ └── ... ├── WebContent/ # Chứa các tài nguyên web (JSP, HTML, CSS, JS) │ ├── gddangnhap.jsp # Trang đăng nhập │ ├── doDangnhap.jsp # Xử lý logic đăng nhập  │ ├── header.jsp # Phần header chung (ví dụ) │ ├── sv/ # Các trang JSP dành cho Sinh viên │ │ ├── gdchinhsv.jsp # Trang chính sinh viên │ │ ├── gdchonnganh.jsp # Chọn ngành/kỳ học để đăng ký │ │ ├── gddangki.jsp # Giao diện đăng ký chính │ │ ├── gdchonmh.jsp # Chọn môn học │ │ ├── gdchonlhp.jsp # Chọn lớp học phần │ │ ├── gdxemlich.jsp # Xem lịch học của lớp │ │ ├── doluudk.jsp # Xử lý lưu đăng ký  │ │ └── ... │ ├── gv/ # Các trang JSP dành cho Giảng viên (ví dụ: nhập điểm)  │ │ ├── gdchinhgv.jsp │ │ ├── gdMonhoc.jsp # Chọn môn học (cho nhập điểm) │ │ ├── gdLophocphan.jsp # Chọn lớp học phần (cho nhập điểm) │ │ ├── gdDiem.jsp # Nhập điểm chi tiết │ │ ├── doLuudiem.jsp # Xử lý lưu điểm  │ │ └── ... │ ├── ql/ # Các trang JSP dành cho Quản lý (ví dụ: thống kê)  │ │ ├── gdChinhQL.jsp │ │ ├── gdChonTK.jsp # Chọn loại thống kê & kỳ học │ │ ├── gdTKHocluc.jsp # Xem thống kê học lực │ │ ├── gdTKHLSinhvien.jsp # Xem danh sách SV theo học lực │ │ ├── gdTKDiemSV.jsp # Xem điểm các môn của SV │ │ ├── gdDiemMHSV.jsp # Xem điểm chi tiết môn của SV  │ │ └── ... │ ├── css/ # (Nên có) Chứa các file CSS │ ├── js/ # (Nên có) Chứa các file JavaScript │ ├── images/ # (Nên có) Chứa hình ảnh │ ├── META-INF/ │ │ └── MANIFEST.MF │ └── WEB-INF/ │ ├── lib/ # Thư viện JAR cần thiết khi deploy  │ │ └── mysql-connector-java-XYZ.jar # Driver MySQL │ │ └── junit-XYZ.jar # Thư viện JUnit (nếu cần khi deploy) │ │ └── ... │ └── web.xml # Deployment Descriptor (Cấu hình Servlet, Filter,...) ├── build/ # Thư mục chứa các file đã biên dịch (.class) ├── .classpath # File cấu hình classpath của Eclipse ├── .project # File cấu hình dự án của Eclipse
+## 🚀 CHẠY NHANH (5 PHÚT)
+
+### Cách 1: Dùng Scripts tự động (Windows)
+
+```bash
+# 1. Setup môi trường
+setup.bat
+
+# 2. Build project
+build.bat
+
+# 3. Chạy Tomcat
+run.bat
+
+# 4. Mở browser
+http://localhost:8080/RestMan/
+```
+
+### Cách 2: Manual
+
+Xem hướng dẫn chi tiết trong [INSTALL.md](INSTALL.md) hoặc [QUICKSTART.md](QUICKSTART.md)
+
+## 📁 Cấu trúc Project
+
+```
+RestMan/
+├── src/                          # Source code Java
+│   ├── dao/                      # Data Access Objects
+│   │   ├── DAO.java             # Base DAO, quản lý connection
+│   │   ├── DishDAO.java
+│   │   ├── SupplierDAO.java
+│   │   ├── IngredientDAO.java
+│   │   ├── ImportInvoiceDAO.java
+│   │   ├── ImportDetailDAO.java
+│   │   └── UserDAO.java
+│   ├── model/                    # Entity classes
+│   │   ├── User.java
+│   │   ├── Dish.java
+│   │   ├── Supplier.java
+│   │   ├── Ingredient.java
+│   │   ├── ImportInvoice.java
+│   │   └── ImportDetail.java
+│   └── servlet/                  # Servlets
+│       ├── LoginServlet.java
+│       ├── SearchDishServlet.java
+│       ├── SupplierServlet.java
+│       ├── IngredientServlet.java
+│       └── ImportInvoiceServlet.java
+├── WebContent/                   # Web resources
+│   ├── WEB-INF/
+│   │   ├── lib/                 # Libraries
+│   │   │   └── mysql-connector-java-8.x.jar ⚠️ PHẢI CÓ
+│   │   └── web.xml              # Web config
+│   ├── css/
+│   │   └── style.css            # Stylesheet
+│   ├── customer/                # Customer pages
+│   │   ├── Customer.jsp
+│   │   ├── SearchDish.jsp
+│   │   └── DishDetail.jsp
+│   ├── warehousestaff/          # Warehouse staff pages
+│   │   ├── WarehouseStaff.jsp
+│   │   ├── SearchSupplier.jsp
+│   │   ├── ImportInvoice.jsp
+│   │   └── InvoiceSuccess.jsp
+│   ├── Login.jsp
+│   └── index.jsp
+├── database/
+│   └── restman.sql              # Database script
+├── target/                       # Build output
+│   └── RestMan.war              # Deployable WAR file
+├── .vscode/                      # VSCode config
+├── pom.xml                       # Maven config
+├── setup.bat                     # 🚀 Auto setup
+├── build.bat                     # 🔨 Build script
+├── run.bat                       # ▶️ Run script
+├── INSTALL.md                    # 📖 Detailed guide
+├── QUICKSTART.md                 # ⚡ Quick start
+└── README.md                     # This file
+```
