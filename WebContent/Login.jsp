@@ -19,6 +19,14 @@
 
             <%
                 String error = (String) request.getAttribute("error");
+                String success = (String) request.getAttribute("success");
+                if (success != null) {
+            %>
+            <div style="background-color: #d4edda; color: #155724; padding: 12px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #c3e6cb;">
+                <%= success %>
+            </div>
+            <%
+                }
                 if (error != null) {
             %>
             <div class="error-message">

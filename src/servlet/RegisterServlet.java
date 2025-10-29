@@ -1,5 +1,7 @@
 package servlet;
 
+import dao.UserDAO;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,9 +52,22 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
-        // TODO: Save to database when MySQL is available
-        // For now, just show a message that database is required
-        request.setAttribute("error", "Chức năng đăng ký yêu cầu cơ sở dữ liệu MySQL. Vui lòng cài đặt và khởi động MySQL trước.");
-        request.getRequestDispatcher("/Register.jsp").forward(request, response);
+        // Try to register user
+        UserDAO userDAO = new UserDAO();
+        Boolean result = userDAO.registerUser(username, fullname, email, phone, password);
+
+        if (result == null) {
+            // Database connection not available
+            request.setAttribute("error", "Không thể kết nối cơ sở dữ liệu. Vui lòng kiểm tra MySQL đã được khởi động.");
+            request.getRequestDispatcher("/Register.jsp").forward(request, response);
+        } else if (result) {
+            // Registration successful
+            request.setAttribute("success", "Đăng ký thành công! Bạn có thể đăng nhập ngay.");
+            request.getRequestDispatcher("/Login.jsp").forward(request, response);
+        } else {
+            // Registration failed (username exists)
+            request.setAttribute("error", "Tên đăng nhập đã tồn tại. Vui lòng chọn tên khác.");
+            request.getRequestDispatcher("/Register.jsp").forward(request, response);
+        }
     }
 }

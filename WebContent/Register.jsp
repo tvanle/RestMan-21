@@ -17,6 +17,12 @@
             <h1 class="login-title">Đăng ký tài khoản</h1>
             <p class="login-subtitle">RestMan - Hệ thống Quản lý Nhà hàng</p>
 
+            <!-- Info message always shown -->
+            <div style="background-color: #e7f3ff; color: #004085; padding: 12px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #0066cc;">
+                <strong>ℹ️ Lưu ý:</strong> Để đăng ký tài khoản, cần có MySQL đang chạy.
+                Nếu chưa cài đặt, bạn có thể <a href="<%= request.getContextPath() %>/customer/Customer.jsp" style="color: #667eea; font-weight: 600;">tiếp tục với tư cách khách</a>.
+            </div>
+
             <%
                 String error = (String) request.getAttribute("error");
                 String success = (String) request.getAttribute("success");
