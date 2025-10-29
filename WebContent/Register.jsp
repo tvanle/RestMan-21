@@ -86,7 +86,7 @@
 
                 <div style="text-align: center; margin-top: 15px;">
                     <a href="<%= request.getContextPath() %>/customer/Customer.jsp" style="color: #667eea; text-decoration: none; font-size: 14px;">
-                        Tiếp tục với tư cách khách →
+                        Tiếp tục với tư cách khách
                     </a>
                 </div>
             </form>

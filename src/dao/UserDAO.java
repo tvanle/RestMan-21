@@ -14,6 +14,13 @@ public class UserDAO extends DAO {
 
         try {
             Connection conn = getConnection();
+
+            // Check if connection is null (database not available)
+            if (conn == null) {
+                System.err.println("Database connection is null. Please check MySQL is running.");
+                return null;
+            }
+
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, role);
@@ -43,6 +50,10 @@ public class UserDAO extends DAO {
             rs.close();
             ps.close();
         } catch (SQLException e) {
+            System.err.println("SQL Error in checkLogin: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Error in checkLogin: " + e.getMessage());
             e.printStackTrace();
         }
 
