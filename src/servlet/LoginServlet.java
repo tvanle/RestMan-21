@@ -28,7 +28,6 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
 
         String username = request.getParameter("username");
-        String role = request.getParameter("role");
 
         if (username == null || username.trim().isEmpty()) {
             request.setAttribute("error", "Vui lòng nhập tên đăng nhập");
@@ -37,26 +36,36 @@ public class LoginServlet extends HttpServlet {
         }
 
         UserDAO userDAO = new UserDAO();
-        User user = userDAO.checkLogin(username, role);
+        User user = null;
+
+        try {
+            // Check login without role filter (find user by username only)
+            user = userDAO.checkLogin(username, null);
+        } catch (Exception e) {
+            System.err.println("Error during login: " + e.getMessage());
+            request.setAttribute("error", "Lỗi kết nối cơ sở dữ liệu. Vui lòng kiểm tra MySQL đã được khởi động.");
+            request.getRequestDispatcher("/Login.jsp").forward(request, response);
+            return;
+        }
 
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             session.setAttribute("username", username);
-            session.setAttribute("role", role);
+            session.setAttribute("role", user.getRole());
 
             // Redirect based on role
-            if ("WAREHOUSE_STAFF".equals(role)) {
+            if ("WAREHOUSE_STAFF".equals(user.getRole())) {
                 response.sendRedirect(request.getContextPath() + "/warehousestaff/WarehouseStaff.jsp");
-            } else if ("MANAGER".equals(role)) {
+            } else if ("MANAGER".equals(user.getRole())) {
                 response.sendRedirect(request.getContextPath() + "/manager/Manager.jsp");
-            } else if ("SALE_STAFF".equals(role)) {
+            } else if ("SALE_STAFF".equals(user.getRole())) {
                 response.sendRedirect(request.getContextPath() + "/salestaff/SaleStaff.jsp");
             } else {
-                response.sendRedirect(request.getContextPath() + "/index.jsp");
+                response.sendRedirect(request.getContextPath() + "/customer/Customer.jsp");
             }
         } else {
-            request.setAttribute("error", "Tên đăng nhập không tồn tại");
+            request.setAttribute("error", "Tên đăng nhập không tồn tại hoặc database chưa được cài đặt. Vui lòng kiểm tra MySQL.");
             request.getRequestDispatcher("/Login.jsp").forward(request, response);
         }
     }

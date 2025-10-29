@@ -8,10 +8,12 @@
     <display-name>RestMan</display-name>
 
     <welcome-file-list>
+        <welcome-file>Login.jsp</welcome-file>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
-    <!-- Character Encoding Filter -->
+    <!-- Character Encoding Filter - Disabled for Jetty -->
+    <!--
     <filter>
         <filter-name>EncodingFilter</filter-name>
         <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
@@ -29,6 +31,7 @@
         <filter-name>EncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    -->
 
     <!-- Session Configuration -->
     <session-config>

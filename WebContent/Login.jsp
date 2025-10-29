@@ -19,6 +19,14 @@
 
             <%
                 String error = (String) request.getAttribute("error");
+                String success = (String) request.getAttribute("success");
+                if (success != null) {
+            %>
+            <div style="background-color: #d4edda; color: #155724; padding: 12px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #c3e6cb;">
+                <%= success %>
+            </div>
+            <%
+                }
                 if (error != null) {
             %>
             <div class="error-message">
@@ -38,16 +46,22 @@
                 <div class="form-group">
                     <label for="password">Mật khẩu</label>
                     <input type="password" id="password" name="password" class="form-input"
-                           placeholder="Nhập mật khẩu">
+                           placeholder="Nhập mật khẩu" required>
                 </div>
 
-                <button type="submit" name="role" value="CUSTOMER" class="btn-primary btn-full">
-                    Đăng nhập - Khách hàng
+                <button type="submit" class="btn-primary btn-full">
+                    Đăng nhập
                 </button>
 
-                <button type="submit" name="role" value="WAREHOUSE_STAFF" class="btn-secondary btn-full">
-                    Đăng nhập - Nhân viên kho
-                </button>
+                <a href="<%= request.getContextPath() %>/Register.jsp" class="btn-secondary btn-full" style="display: block; text-align: center; text-decoration: none; margin-top: 15px;">
+                    Đăng ký
+                </a>
+
+                <div style="text-align: center; margin-top: 25px;">
+                    <a href="<%= request.getContextPath() %>/customer/Customer.jsp" style="color: #667eea; text-decoration: none; font-size: 16px;">
+                        Tiếp tục với tư cách khách
+                    </a>
+                </div>
             </form>
         </div>
     </div>

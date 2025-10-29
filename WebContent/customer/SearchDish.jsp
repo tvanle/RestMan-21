@@ -35,6 +35,17 @@
         </div>
 
         <%
+            String error = (String) request.getAttribute("error");
+            if (error != null) {
+        %>
+        <div class="error-message" style="margin: 20px 0;">
+            <%= error %>
+        </div>
+        <%
+            }
+        %>
+
+        <%
             List<Dish> dishes = (List<Dish>) request.getAttribute("dishes");
             String searchKeyword = (String) request.getAttribute("searchKeyword");
 

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/SearchDishServlet")
@@ -30,7 +31,14 @@ public class SearchDishServlet extends HttpServlet {
             String dishName = request.getParameter("dishName");
             List<Dish> dishes = dishDAO.searchDishesByName(dishName != null ? dishName : "");
 
-            request.setAttribute("dishes", dishes);
+            if (dishes == null) {
+                // Database not available
+                request.setAttribute("error", "Không thể kết nối cơ sở dữ liệu. Vui lòng kiểm tra MySQL đã được khởi động.");
+                request.setAttribute("dishes", new ArrayList<Dish>());
+            } else {
+                request.setAttribute("dishes", dishes);
+            }
+
             request.setAttribute("searchKeyword", dishName);
             request.getRequestDispatcher("/customer/SearchDish.jsp").forward(request, response);
 
@@ -49,7 +57,17 @@ public class SearchDishServlet extends HttpServlet {
                 }
             }
         } else {
-            // Default: show search page
+            // Default: load all dishes on initial page load
+            List<Dish> dishes = dishDAO.getAllDishes();
+
+            if (dishes == null) {
+                // Database not available
+                request.setAttribute("error", "Không thể kết nối cơ sở dữ liệu. Vui lòng kiểm tra MySQL đã được khởi động.");
+                request.setAttribute("dishes", new ArrayList<Dish>());
+            } else {
+                request.setAttribute("dishes", dishes);
+            }
+
             request.getRequestDispatcher("/customer/SearchDish.jsp").forward(request, response);
         }
     }
