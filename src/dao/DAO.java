@@ -7,8 +7,9 @@ import java.sql.SQLException;
 public class DAO {
     protected static Connection con;
 
-    // Database connection parameters
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/restman";
+    // Database connection parameters  
+    private static final String DB_HOST = System.getProperty("DB_HOST", "mysql");
+    private static final String DB_URL = "jdbc:mysql://" + DB_HOST + ":3306/restman";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
 

@@ -83,7 +83,7 @@ CREATE TABLE ComboMenu (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     price DECIMAL(11,2) NOT NULL,
-    desc TEXT
+    description TEXT
 );
 
 -- ComboItem
@@ -122,8 +122,8 @@ CREATE TABLE DishOrder (
 CREATE TABLE Invoice (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT UNIQUE,
-    total DATE,
-    customerAmount STRING,
+    total DECIMAL(11,2),
+    customerAmount DECIMAL(11,2),
     FOREIGN KEY (order_id) REFERENCES `Order`(id) ON DELETE SET NULL
 );
 
@@ -210,7 +210,7 @@ INSERT INTO Dish (name, price, description, category) VALUES
 ('Chả Giò', 35000, 'Chả giò chiên giòn rụm', 'Khai vị');
 
 -- ComboMenu
-INSERT INTO ComboMenu (name, price, desc) VALUES
+INSERT INTO ComboMenu (name, price, description) VALUES
 ('Combo Gia Đình', 200000, 'Phở bò + Bún chả + 2 Gỏi cuốn'),
 ('Combo Tiết Kiệm', 120000, 'Phở bò + Chả giò + Nước ngọt');
 
