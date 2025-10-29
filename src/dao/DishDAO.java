@@ -9,6 +9,7 @@ public class DishDAO extends DAO {
 
     /**
      * Search dishes by name
+     * @return List of dishes, null if database not available
      */
     public List<Dish> searchDishesByName(String name) {
         List<Dish> dishes = new ArrayList<>();
@@ -16,6 +17,13 @@ public class DishDAO extends DAO {
 
         try {
             Connection conn = getConnection();
+
+            // Check if connection is null
+            if (conn == null) {
+                System.err.println("Database connection is null. Cannot search dishes.");
+                return null;
+            }
+
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, "%" + name + "%");
             ResultSet rs = ps.executeQuery();
@@ -33,7 +41,13 @@ public class DishDAO extends DAO {
             rs.close();
             ps.close();
         } catch (SQLException e) {
+            System.err.println("SQL Error in searchDishesByName: " + e.getMessage());
             e.printStackTrace();
+            return null;
+        } catch (Exception e) {
+            System.err.println("Error in searchDishesByName: " + e.getMessage());
+            e.printStackTrace();
+            return null;
         }
 
         return dishes;
@@ -72,6 +86,7 @@ public class DishDAO extends DAO {
 
     /**
      * Get all dishes
+     * @return List of all dishes, null if database not available
      */
     public List<Dish> getAllDishes() {
         List<Dish> dishes = new ArrayList<>();
@@ -79,6 +94,13 @@ public class DishDAO extends DAO {
 
         try {
             Connection conn = getConnection();
+
+            // Check if connection is null
+            if (conn == null) {
+                System.err.println("Database connection is null. Cannot get dishes.");
+                return null;
+            }
+
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
 
@@ -95,7 +117,13 @@ public class DishDAO extends DAO {
             rs.close();
             stmt.close();
         } catch (SQLException e) {
+            System.err.println("SQL Error in getAllDishes: " + e.getMessage());
             e.printStackTrace();
+            return null;
+        } catch (Exception e) {
+            System.err.println("Error in getAllDishes: " + e.getMessage());
+            e.printStackTrace();
+            return null;
         }
 
         return dishes;
