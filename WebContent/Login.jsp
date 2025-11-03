@@ -53,10 +53,6 @@
                     Đăng nhập
                 </button>
 
-                <a href="<%= request.getContextPath() %>/Register.jsp" class="btn-secondary btn-full" style="display: block; text-align: center; text-decoration: none; margin-top: 15px;">
-                    Đăng ký
-                </a>
-
                 <div style="text-align: center; margin-top: 25px;">
                     <a href="<%= request.getContextPath() %>/customer/Customer.jsp" style="color: #667eea; text-decoration: none; font-size: 16px;">
                         Tiếp tục với tư cách khách

@@ -8,8 +8,11 @@ USE restman;
 CREATE TABLE User (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255),
     role VARCHAR(20) NOT NULL,
     address VARCHAR(255),
+    email VARCHAR(100),
+    phone VARCHAR(20),
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -169,11 +172,13 @@ CREATE TABLE ImportDetail (
 
 -- Insert sample data for testing
 
--- Users
-INSERT INTO User (username, role, address) VALUES
-('admin', 'MANAGER', 'Hà Nội'),
-('nvkho01', 'WAREHOUSE_STAFF', 'Hà Nội'),
-('nvban01', 'SALE_STAFF', 'Hà Nội');
+-- Users (password: 123456 for all sample accounts)
+INSERT INTO User (username, password, role, address, email, phone) VALUES
+('admin', '123456', 'MANAGER', 'Hà Nội', 'admin@restman.vn', '0901234567'),
+('nvkho01', '123456', 'WAREHOUSE_STAFF', 'Hà Nội', 'warehouse@restman.vn', '0901234568'),
+('nvban01', '123456', 'SALE_STAFF', 'Hà Nội', 'sales@restman.vn', '0901234569'),
+('customer01', '123456', 'CUSTOMER', 'Hà Nội', 'customer1@gmail.com', '0912345678'),
+('customer02', '123456', 'CUSTOMER', 'Hồ Chí Minh', 'customer2@gmail.com', '0923456789');
 
 -- Manager
 INSERT INTO Manager (id) VALUES (1);
