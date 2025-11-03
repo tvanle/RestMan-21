@@ -16,17 +16,17 @@
         %>
         <div class="header">
             <div class="header-left">
-                <a href="javascript:history.back()" class="back-btn">← Quay lại</a>
+                <a href="javascript:history.back()" class="back-btn">< Quay lại</a>
             </div>
-            <h1 class="header-title">Chi tiết món ăn</h1>
+            <h1 class="header-title">RestMan | Chi tiết món ăn</h1>
             <div class="header-right">
-                <a href="<%= request.getContextPath() %>/index.jsp" class="logout-btn">↪</a>
+                <a href="<%= request.getContextPath() %>/index.jsp" class="logout-btn">Thoát</a>
             </div>
         </div>
 
         <div class="dish-detail">
             <div class="dish-detail-image">
-                <div class="dish-icon-large">🍜</div>
+                <div class="dish-placeholder">[Hình ảnh món ăn]</div>
             </div>
 
             <div class="dish-detail-content">

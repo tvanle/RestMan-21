@@ -12,7 +12,13 @@
       "Bash(then mkdir -p WebContent/WEB-INF/classes)",
       "Bash(git init:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git pull:*)",
+      "Bash(docker-compose up:*)",
+      "Bash(lsof:*)",
+      "Bash(docker-compose ps:*)",
+      "Bash(docker exec:*)",
+      "Bash(rm:*)"
     ],
     "deny": [],
     "ask": []

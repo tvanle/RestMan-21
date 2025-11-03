@@ -13,11 +13,11 @@
     <div class="container">
         <div class="header">
             <div class="header-left">
-                <a href="<%= request.getContextPath() %>/customer/Customer.jsp" class="back-btn">← Quay lại</a>
+                <a href="<%= request.getContextPath() %>/customer/Customer.jsp" class="back-btn">< Quay lại</a>
             </div>
-            <h1 class="header-title">Tìm kiếm món ăn</h1>
+            <h1 class="header-title">RestMan | Tìm kiếm món ăn</h1>
             <div class="header-right">
-                <a href="<%= request.getContextPath() %>/index.jsp" class="logout-btn">↪</a>
+                <a href="<%= request.getContextPath() %>/index.jsp" class="logout-btn">Thoát</a>
             </div>
         </div>
 
@@ -25,7 +25,6 @@
             <form action="<%= request.getContextPath() %>/SearchDishServlet" method="get" class="search-form">
                 <input type="hidden" name="action" value="search">
                 <div class="search-box">
-                    <span class="search-icon">🔍</span>
                     <input type="text" name="dishName" placeholder="Nhập tên món ăn..."
                            value="<%= request.getAttribute("searchKeyword") != null ? request.getAttribute("searchKeyword") : "" %>"
                            class="search-input">
@@ -60,9 +59,6 @@
                 for (Dish dish : dishes) {
             %>
             <a href="<%= request.getContextPath() %>/SearchDishServlet?action=viewDetail&dishId=<%= dish.getId() %>" class="dish-card">
-                <div class="dish-image">
-                    <div class="dish-icon">🍜</div>
-                </div>
                 <div class="dish-info">
                     <h3 class="dish-name"><%= dish.getName() %></h3>
                     <p class="dish-description"><%= dish.getDescription() %></p>

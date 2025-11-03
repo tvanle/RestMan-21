@@ -10,12 +10,10 @@
 <body>
     <div class="login-container">
         <div class="login-box">
-            <div class="login-logo">
-                <div class="logo-icon-large">🍴</div>
+            <div class="system-header">
+                <h1>RestMan</h1>
+                <p>Đăng nhập</p>
             </div>
-
-            <h1 class="login-title">RestMan</h1>
-            <p class="login-subtitle">Hệ thống Quản lý Nhà hàng</p>
 
             <%
                 String error = (String) request.getAttribute("error");

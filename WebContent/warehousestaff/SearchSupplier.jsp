@@ -13,11 +13,11 @@
     <div class="container">
         <div class="header">
             <div class="header-left">
-                <a href="<%= request.getContextPath() %>/warehousestaff/WarehouseStaff.jsp" class="back-btn">← Quay lại</a>
+                <a href="<%= request.getContextPath() %>/warehousestaff/WarehouseStaff.jsp" class="back-btn">< Quay lại</a>
             </div>
-            <h1 class="header-title">Nhập nguyên liệu</h1>
+            <h1 class="header-title">RestMan | Nhập nguyên liệu</h1>
             <div class="header-right">
-                <a href="<%= request.getContextPath() %>/index.jsp" class="logout-btn">↪</a>
+                <a href="<%= request.getContextPath() %>/index.jsp" class="logout-btn">Thoát</a>
             </div>
         </div>
 
@@ -29,7 +29,6 @@
             <form action="<%= request.getContextPath() %>/SupplierServlet" method="get" class="search-form">
                 <input type="hidden" name="action" value="search">
                 <div class="search-box">
-                    <span class="search-icon">🔍</span>
                     <input type="text" name="supplierName" placeholder="Nhập tên nhà cung cấp..."
                            value="<%= request.getAttribute("searchKeyword") != null ? request.getAttribute("searchKeyword") : "" %>"
                            class="search-input">
@@ -55,10 +54,10 @@
             <a href="<%= request.getContextPath() %>/SupplierServlet?action=select&supplierId=<%= supplier.getId() %>" class="supplier-card">
                 <div class="supplier-info">
                     <h3 class="supplier-name"><%= supplier.getName() %></h3>
-                    <p class="supplier-contact">📞 <%= supplier.getPhone() %></p>
-                    <p class="supplier-address">📍 <%= supplier.getAddress() %></p>
+                    <p class="supplier-contact">SĐT: <%= supplier.getPhone() %></p>
+                    <p class="supplier-address">Địa chỉ: <%= supplier.getAddress() %></p>
                 </div>
-                <div class="card-arrow">›</div>
+                <div class="card-arrow">></div>
             </a>
             <%
                 }

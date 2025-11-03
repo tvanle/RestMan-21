@@ -27,17 +27,17 @@
 
         <div class="header">
             <div class="header-left">
-                <a href="<%= request.getContextPath() %>/SupplierServlet" class="back-btn">← Quay lại</a>
+                <a href="<%= request.getContextPath() %>/SupplierServlet" class="back-btn">< Quay lại</a>
             </div>
-            <h1 class="header-title">Chọn nguyên liệu</h1>
+            <h1 class="header-title">RestMan | Chọn nguyên liệu</h1>
             <div class="header-right">
-                <a href="<%= request.getContextPath() %>/index.jsp" class="logout-btn">↪</a>
+                <a href="<%= request.getContextPath() %>/index.jsp" class="logout-btn">Thoát</a>
             </div>
         </div>
 
         <div class="supplier-info-bar">
             <strong>Nhà cung cấp:</strong> <%= supplier.getName() %><br>
-            <strong>📞</strong> <%= supplier.getPhone() %>
+            <strong>SĐT:</strong> <%= supplier.getPhone() %>
         </div>
 
         <div class="step-indicator">
@@ -62,7 +62,6 @@
             <form action="<%= request.getContextPath() %>/IngredientServlet" method="get" class="search-form">
                 <input type="hidden" name="action" value="search">
                 <div class="search-box">
-                    <span class="search-icon">🔍</span>
                     <input type="text" name="ingredientName" placeholder="Nhập tên nguyên liệu..."
                            value="<%= request.getAttribute("searchKeyword") != null ? request.getAttribute("searchKeyword") : "" %>"
                            class="search-input">
@@ -105,7 +104,7 @@
             if (importDetails != null && !importDetails.isEmpty()) {
         %>
         <div class="cart-section">
-            <h2>📋 Danh sách nhập (<%= importDetails.size() %>)</h2>
+            <h2>Danh sách nhập (<%= importDetails.size() %>)</h2>
 
             <div class="cart-items">
                 <%
@@ -145,7 +144,7 @@
             </div>
 
             <form action="<%= request.getContextPath() %>/ImportInvoiceServlet" method="post">
-                <button type="submit" class="btn-primary btn-full btn-large">✓ Xác nhận và thanh toán</button>
+                <button type="submit" class="btn-primary btn-full btn-large">Xác nhận và thanh toán</button>
             </form>
         </div>
         <%

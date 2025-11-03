@@ -21,8 +21,7 @@
         %>
         <div class="invoice-container">
             <div class="invoice-header">
-                <div class="logo-icon-large">🍴</div>
-                <h1>HÓA ĐƠN NHẬP HÀNG</h1>
+                <h1>RestMan | Hóa đơn nhập hàng</h1>
                 <p class="invoice-company">Nhà hàng RestMan</p>
                 <p>Địa chỉ: Hà Nội | SĐT: 024-xxx-xxxx</p>
             </div>
@@ -107,8 +106,8 @@
             </div>
 
             <div class="invoice-actions">
-                <button type="button" class="btn-secondary" onclick="window.print()">📄 In hóa đơn</button>
-                <a href="<%= request.getContextPath() %>/warehousestaff/WarehouseStaff.jsp" class="btn-primary">✓ Xác nhận và thanh toán</a>
+                <button type="button" class="btn-secondary" onclick="window.print()">In hóa đơn</button>
+                <a href="<%= request.getContextPath() %>/warehousestaff/WarehouseStaff.jsp" class="btn-primary">Xác nhận và thanh toán</a>
             </div>
         </div>
         <%
