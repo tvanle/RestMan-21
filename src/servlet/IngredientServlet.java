@@ -75,7 +75,10 @@ public class IngredientServlet extends HttpServlet {
             request.getRequestDispatcher("/warehousestaff/ImportInvoice.jsp").forward(request, response);
 
         } else {
-            // Default: show import invoice page
+            // Default: load all ingredients and show import invoice page
+            List<Ingredient> ingredients = ingredientDAO.searchIngredientByName("");
+            request.setAttribute("ingredients", ingredients);
+
             // Initialize import invoice if needed
             ImportInvoice invoice = (ImportInvoice) session.getAttribute("importInvoice");
             if (invoice == null) {
