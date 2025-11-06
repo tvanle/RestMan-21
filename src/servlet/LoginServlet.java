@@ -28,9 +28,16 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
 
         String username = request.getParameter("username");
+        String password = request.getParameter("password");
 
         if (username == null || username.trim().isEmpty()) {
             request.setAttribute("error", "Vui lòng nhập tên đăng nhập");
+            request.getRequestDispatcher("/Login.jsp").forward(request, response);
+            return;
+        }
+
+        if (password == null || password.trim().isEmpty()) {
+            request.setAttribute("error", "Vui lòng nhập mật khẩu");
             request.getRequestDispatcher("/Login.jsp").forward(request, response);
             return;
         }
@@ -39,8 +46,8 @@ public class LoginServlet extends HttpServlet {
         User user = null;
 
         try {
-            // Check login without role filter (find user by username only)
-            user = userDAO.checkLogin(username, null);
+            // Check login with username and password (no role filter)
+            user = userDAO.checkLogin(username, password, null);
         } catch (Exception e) {
             System.err.println("Error during login: " + e.getMessage());
             request.setAttribute("error", "Lỗi kết nối cơ sở dữ liệu. Vui lòng kiểm tra MySQL đã được khởi động.");
@@ -54,18 +61,10 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("username", username);
             session.setAttribute("role", user.getRole());
 
-            // Redirect based on role
-            if ("WAREHOUSE_STAFF".equals(user.getRole())) {
-                response.sendRedirect(request.getContextPath() + "/warehousestaff/WarehouseStaff.jsp");
-            } else if ("MANAGER".equals(user.getRole())) {
-                response.sendRedirect(request.getContextPath() + "/manager/Manager.jsp");
-            } else if ("SALE_STAFF".equals(user.getRole())) {
-                response.sendRedirect(request.getContextPath() + "/salestaff/SaleStaff.jsp");
-            } else {
-                response.sendRedirect(request.getContextPath() + "/customer/Customer.jsp");
-            }
+            // Redirect all authenticated users to WarehouseStaff page
+            response.sendRedirect(request.getContextPath() + "/warehousestaff/WarehouseStaff.jsp");
         } else {
-            request.setAttribute("error", "Tên đăng nhập không tồn tại hoặc database chưa được cài đặt. Vui lòng kiểm tra MySQL.");
+            request.setAttribute("error", "Tên đăng nhập hoặc mật khẩu không đúng.");
             request.getRequestDispatcher("/Login.jsp").forward(request, response);
         }
     }

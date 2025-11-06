@@ -51,7 +51,9 @@ public class SupplierServlet extends HttpServlet {
                 }
             }
         } else {
-            // Default: show search page
+            // Default: load all suppliers
+            List<Supplier> suppliers = supplierDAO.searchSupplierByName("");
+            request.setAttribute("suppliers", suppliers);
             request.getRequestDispatcher("/warehousestaff/SearchSupplier.jsp").forward(request, response);
         }
     }

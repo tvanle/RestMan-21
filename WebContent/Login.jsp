@@ -38,13 +38,13 @@
                 <div class="form-group">
                     <label for="username">Tên đăng nhập</label>
                     <input type="text" id="username" name="username" class="form-input"
-                           placeholder="Nhập tên đăng nhập" required>
+                           placeholder="Nhập tên đăng nhập" autocomplete="username" required>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Mật khẩu</label>
                     <input type="password" id="password" name="password" class="form-input"
-                           placeholder="Nhập mật khẩu" required>
+                           placeholder="Nhập mật khẩu" autocomplete="current-password" required>
                 </div>
 
                 <button type="submit" class="btn-primary btn-full">
