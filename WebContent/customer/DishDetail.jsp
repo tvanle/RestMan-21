@@ -24,12 +24,24 @@
             </div>
         </div>
 
-        <div class="dish-detail">
-            <div class="dish-detail-image">
-                <div class="dish-placeholder">[Hình ảnh món ăn]</div>
+        <div class="dish-detail-container">
+            <div class="dish-detail-left">
+                <div class="dish-detail-image">
+                    <div class="dish-placeholder">[Hình ảnh món ăn]</div>
+                </div>
+
+                <div class="dish-detail-section">
+                    <h3>Nguyên liệu</h3>
+                    <ul class="ingredient-list">
+                        <li>Bánh phở</li>
+                        <li>Thịt bò</li>
+                        <li>Hành</li>
+                        <li>Ngò</li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="dish-detail-content">
+            <div class="dish-detail-right">
                 <div class="dish-detail-header">
                     <h1 class="dish-detail-name"><%= dish.getName() %></h1>
                     <span class="dish-detail-badge">Món chính</span>
@@ -45,14 +57,9 @@
                     <p><%= dish.getDescription() %></p>
                 </div>
 
-                <div class="dish-detail-section">
-                    <h3>Nguyên liệu</h3>
-                    <p>Bánh phở, thịt bò, hành, ngò</p>
-                </div>
-
                 <div class="dish-detail-actions">
-                    <button class="btn-primary btn-large">Đặt món ngay</button>
-                    <button class="btn-secondary btn-large">Thêm vào giỏ</button>
+                    <button class="btn-primary btn-full">Đặt món ngay</button>
+                    <button class="btn-secondary btn-full">Thêm vào giỏ</button>
                 </div>
             </div>
         </div>
