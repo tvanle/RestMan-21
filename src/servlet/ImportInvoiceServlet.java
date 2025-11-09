@@ -66,12 +66,13 @@ public class ImportInvoiceServlet extends HttpServlet {
             session.removeAttribute("importDetails");
             session.removeAttribute("importInvoice");
 
-            // Set invoice for display
+            // Set invoice for display in ImportInvoice.jsp
             request.setAttribute("invoice", invoice);
             request.setAttribute("totalBeforeVAT", totalAmount);
             request.setAttribute("vat", vat);
 
-            request.getRequestDispatcher("/warehousestaff/InvoiceSuccess.jsp").forward(request, response);
+            // Forward to same page but display invoice
+            request.getRequestDispatcher("/warehousestaff/ImportInvoice.jsp").forward(request, response);
         } else {
             request.setAttribute("errorMessage", "Lỗi khi lưu hóa đơn");
             request.getRequestDispatcher("/warehousestaff/ImportInvoice.jsp").forward(request, response);
