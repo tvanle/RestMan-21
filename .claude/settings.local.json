@@ -24,7 +24,8 @@
       "Bash(docker-compose down:*)",
       "Bash(javac:*)",
       "Bash(curl:*)",
-      "Bash(docker cp:*)"
+      "Bash(docker cp:*)",
+      "Bash(git clone:*)"
     ],
     "deny": [],
     "ask": []

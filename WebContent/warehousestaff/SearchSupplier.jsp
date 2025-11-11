@@ -25,6 +25,15 @@
             <div class="step active">Bước 1: Chọn nhà cung cấp</div>
         </div>
 
+        <%
+            String successMessage = (String) request.getAttribute("successMessage");
+            if (successMessage != null) {
+        %>
+        <div class="success-message"><%= successMessage %></div>
+        <%
+            }
+        %>
+
         <div class="search-section">
             <form action="<%= request.getContextPath() %>/SupplierServlet" method="get" class="search-form">
                 <input type="hidden" name="action" value="search">
@@ -79,5 +88,18 @@
             </button>
         </div>
     </div>
+
+    <script>
+        // Show success notification if exists
+        <%
+            if (successMessage != null) {
+        %>
+        window.onload = function() {
+            alert('<%= successMessage %>');
+        };
+        <%
+            }
+        %>
+    </script>
 </body>
 </html>

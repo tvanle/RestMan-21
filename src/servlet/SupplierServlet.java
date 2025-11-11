@@ -22,6 +22,13 @@ public class SupplierServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
 
+        // Check for success message in session
+        String successMessage = (String) request.getSession().getAttribute("successMessage");
+        if (successMessage != null) {
+            request.setAttribute("successMessage", successMessage);
+            request.getSession().removeAttribute("successMessage");
+        }
+
         String action = request.getParameter("action");
         SupplierDAO supplierDAO = new SupplierDAO();
 

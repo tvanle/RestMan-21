@@ -72,6 +72,10 @@ public class IngredientServlet extends HttpServlet {
                 }
             }
 
+            // Load all ingredients after adding to cart
+            List<Ingredient> ingredients = ingredientDAO.searchIngredientByName("");
+            request.setAttribute("ingredients", ingredients);
+
             request.getRequestDispatcher("/warehousestaff/ImportInvoice.jsp").forward(request, response);
 
         } else {

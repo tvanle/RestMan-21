@@ -167,3 +167,17 @@ database/backup/
 # Application specific
 WebContent/WEB-INF/classes/
 !WebContent/WEB-INF/lib/mysql-connector-java-*.jar
+
+# Development Tools
+tools/*
+!tools/.gitkeep
+!tools/README.md
+
+# MCP Servers and AI Tools
+.serena/
+.mcp/
+*.mcp.log
+
+# AI Generated or temporary files
+.ai-temp/
+.claude-cache/

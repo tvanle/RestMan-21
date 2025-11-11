@@ -66,13 +66,9 @@ public class ImportInvoiceServlet extends HttpServlet {
             session.removeAttribute("importDetails");
             session.removeAttribute("importInvoice");
 
-            // Set invoice for display in ImportInvoice.jsp
-            request.setAttribute("invoice", invoice);
-            request.setAttribute("totalBeforeVAT", totalAmount);
-            request.setAttribute("vat", vat);
-
-            // Forward to same page but display invoice
-            request.getRequestDispatcher("/warehousestaff/ImportInvoice.jsp").forward(request, response);
+            // Redirect to SupplierServlet with success message
+            session.setAttribute("successMessage", "Tạo hóa đơn nhập hàng thành công! Mã HD: HD" + String.format("%08d", invoice.getId()));
+            response.sendRedirect(request.getContextPath() + "/SupplierServlet");
         } else {
             request.setAttribute("errorMessage", "Lỗi khi lưu hóa đơn");
             request.getRequestDispatcher("/warehousestaff/ImportInvoice.jsp").forward(request, response);

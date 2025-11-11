@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="model.*" %>
-<%@ page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,120 +12,17 @@
 <body>
     <div class="container">
         <%
-            // Check if invoice is created (success state)
-            ImportInvoice invoice = (ImportInvoice) request.getAttribute("invoice");
-            Float totalBeforeVAT = (Float) request.getAttribute("totalBeforeVAT");
-            Float vat = (Float) request.getAttribute("vat");
+            Supplier supplier = (Supplier) session.getAttribute("selectedSupplier");
+            if (supplier == null) {
+                response.sendRedirect(request.getContextPath() + "/SupplierServlet");
+                return;
+            }
 
-            if (invoice != null) {
-                // Display invoice success
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        %>
-        <div class="invoice-container">
-            <div class="invoice-header">
-                <h1>RestMan | Hóa đơn nhập hàng</h1>
-                <p class="invoice-company">Nhà hàng RestMan</p>
-                <p>Địa chỉ: Hà Nội | SĐT: 024-xxx-xxxx</p>
-            </div>
-
-            <div class="invoice-info">
-                <div class="info-row">
-                    <span>Số hóa đơn:</span>
-                    <strong>HD<%= String.format("%08d", invoice.getId()) %></strong>
-                </div>
-                <div class="info-row">
-                    <span>Ngày nhập:</span>
-                    <strong><%= dateFormat.format(invoice.getDate()) %></strong>
-                </div>
-            </div>
-
-            <div class="invoice-parties">
-                <div class="party">
-                    <h3>Nhà cung cấp:</h3>
-                    <p><strong><%= invoice.getSupplier().getName() %></strong></p>
-                    <p><%= invoice.getSupplier().getPhone() %></p>
-                </div>
-                <div class="party">
-                    <h3>Nhân viên:</h3>
-                    <p><strong>NV<%= String.format("%03d", invoice.getWarehouseStaff().getId()) %> - <%= invoice.getWarehouseStaff().getUsername() %></strong></p>
-                </div>
-            </div>
-
-            <table class="invoice-table">
-                <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Tên nguyên liệu</th>
-                        <th>Đơn vị</th>
-                        <th>Đơn giá</th>
-                        <th>SL</th>
-                        <th>Thành tiền</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%
-                        int index = 1;
-                        for (ImportDetail detail : invoice.getImportDetails()) {
-                    %>
-                    <tr>
-                        <td><%= index++ %></td>
-                        <td><%= detail.getIngredient().getName() %></td>
-                        <td><%= detail.getIngredient().getContent() %></td>
-                        <td><%= String.format("%,d", (int)detail.getUnitPrice()) %>đ</td>
-                        <td><%= detail.getQuantity() %></td>
-                        <td><%= String.format("%,d", (int)detail.getTotalPrice()) %>đ</td>
-                    </tr>
-                    <%
-                        }
-                    %>
-                </tbody>
-            </table>
-
-            <div class="invoice-summary">
-                <div class="summary-row">
-                    <span>Tạm tính:</span>
-                    <span><%= String.format("%,d", totalBeforeVAT.intValue()) %>đ</span>
-                </div>
-                <div class="summary-row">
-                    <span>VAT (10%):</span>
-                    <span><%= String.format("%,d", vat.intValue()) %>đ</span>
-                </div>
-                <div class="summary-total">
-                    <strong>Tổng cộng:</strong>
-                    <strong><%= String.format("%,d", (int)invoice.getTotalAmount()) %>đ</strong>
-                </div>
-            </div>
-
-            <div class="invoice-signatures">
-                <div class="signature">
-                    <p><strong>Người giao hàng</strong></p>
-                    <p>(Ký và ghi rõ họ tên)</p>
-                </div>
-                <div class="signature">
-                    <p><strong>Người nhận hàng</strong></p>
-                    <p>(Ký và ghi rõ họ tên)</p>
-                </div>
-            </div>
-
-            <div class="invoice-actions">
-                <button type="button" class="btn-secondary" onclick="window.print()">In hóa đơn</button>
-                <a href="<%= request.getContextPath() %>/warehousestaff/WarehouseStaff.jsp" class="btn-primary">Xác nhận và thanh toán</a>
-            </div>
-        </div>
-        <%
-            } else {
-                // Display normal ingredient selection
-                Supplier supplier = (Supplier) session.getAttribute("selectedSupplier");
-                if (supplier == null) {
-                    response.sendRedirect(request.getContextPath() + "/SupplierServlet");
-                    return;
-                }
-
-                @SuppressWarnings("unchecked")
-                List<ImportDetail> importDetails = (List<ImportDetail>) session.getAttribute("importDetails");
-                List<Ingredient> ingredients = (List<Ingredient>) request.getAttribute("ingredients");
-                String successMessage = (String) request.getAttribute("successMessage");
-                String errorMessage = (String) request.getAttribute("errorMessage");
+            @SuppressWarnings("unchecked")
+            List<ImportDetail> importDetails = (List<ImportDetail>) session.getAttribute("importDetails");
+            List<Ingredient> ingredients = (List<Ingredient>) request.getAttribute("ingredients");
+            String successMessage = (String) request.getAttribute("successMessage");
+            String errorMessage = (String) request.getAttribute("errorMessage");
         %>
 
         <div class="header">
@@ -329,9 +225,17 @@
         function closeModal() {
             document.getElementById('addModal').style.display = 'none';
         }
-    </script>
+
+        // Show success notification if exists
         <%
-            } // End else block
+            if (successMessage != null) {
         %>
+        window.onload = function() {
+            alert('<%= successMessage %>');
+        };
+        <%
+            }
+        %>
+    </script>
 </body>
 </html>
