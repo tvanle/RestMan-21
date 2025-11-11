@@ -68,6 +68,7 @@ public class SearchDishServlet extends HttpServlet {
                 request.setAttribute("dishes", dishes);
             }
 
+            request.setAttribute("searchKeyword", "");
             request.getRequestDispatcher("/customer/SearchDish.jsp").forward(request, response);
         }
     }

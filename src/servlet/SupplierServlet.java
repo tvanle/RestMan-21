@@ -61,6 +61,7 @@ public class SupplierServlet extends HttpServlet {
             // Default: load all suppliers
             List<Supplier> suppliers = supplierDAO.searchSupplierByName("");
             request.setAttribute("suppliers", suppliers);
+            request.setAttribute("searchKeyword", "");
             request.getRequestDispatcher("/warehousestaff/SearchSupplier.jsp").forward(request, response);
         }
     }

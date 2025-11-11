@@ -76,7 +76,7 @@
                 <%
                     String searchKeyword = (String) request.getAttribute("searchKeyword");
                     if (ingredients != null && !ingredients.isEmpty()) {
-                        int itemsPerPage = 5;
+                        int itemsPerPage = 3;
                         int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
                         int totalItems = ingredients.size();
                         int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);

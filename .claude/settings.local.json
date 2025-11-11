@@ -25,7 +25,11 @@
       "Bash(javac:*)",
       "Bash(curl:*)",
       "Bash(docker cp:*)",
-      "Bash(git clone:*)"
+      "Bash(git clone:*)",
+      "Bash(docker system prune:*)",
+      "Bash(docker volume prune:*)",
+      "Bash(docker-compose restart:*)",
+      "Bash(docker logs:*)"
     ],
     "deny": [],
     "ask": []

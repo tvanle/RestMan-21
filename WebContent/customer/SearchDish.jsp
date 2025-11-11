@@ -49,7 +49,7 @@
             String searchKeyword = (String) request.getAttribute("searchKeyword");
 
             if (dishes != null && !dishes.isEmpty()) {
-                int itemsPerPage = 5;
+                int itemsPerPage = 3;
                 int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
                 int totalItems = dishes.size();
                 int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
