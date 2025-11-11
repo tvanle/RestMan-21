@@ -67,7 +67,7 @@
                 for (int i = startIndex; i < endIndex; i++) {
                     Supplier supplier = suppliers.get(i);
             %>
-            <a href="<%= request.getContextPath() %>/SupplierServlet?action=select&supplierId=<%= supplier.getId() %>" class="supplier-card">
+            <a href="<%= request.getContextPath() %>/IngredientServlet?supplierId=<%= supplier.getId() %>" class="supplier-card">
                 <div class="supplier-info">
                     <h3 class="supplier-name"><%= supplier.getName() %></h3>
                     <p class="supplier-contact">SĐT: <%= supplier.getPhone() %></p>

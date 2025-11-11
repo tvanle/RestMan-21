@@ -1,6 +1,7 @@
 package servlet;
 
 import dao.IngredientDAO;
+import dao.SupplierDAO;
 import model.*;
 
 import javax.servlet.ServletException;
@@ -10,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/IngredientServlet")
@@ -28,6 +28,21 @@ public class IngredientServlet extends HttpServlet {
         String action = request.getParameter("action");
         IngredientDAO ingredientDAO = new IngredientDAO();
 
+        // Bước 28-33: Nhận supplierId từ SearchSupplier.jsp và lưu vào session
+        String supplierIdStr = request.getParameter("supplierId");
+        if (supplierIdStr != null) {
+            try {
+                int supplierId = Integer.parseInt(supplierIdStr);
+                SupplierDAO supplierDAO = new SupplierDAO();
+                Supplier supplier = supplierDAO.getSupplierById(supplierId);
+                if (supplier != null) {
+                    session.setAttribute("selectedSupplier", supplier);
+                }
+            } catch (NumberFormatException e) {
+                // Invalid supplier ID
+            }
+        }
+
         if ("search".equals(action)) {
             // Search ingredients
             String ingredientName = request.getParameter("ingredientName");
@@ -35,48 +50,6 @@ public class IngredientServlet extends HttpServlet {
 
             request.setAttribute("ingredients", ingredients);
             request.setAttribute("searchKeyword", ingredientName);
-            request.getRequestDispatcher("/warehousestaff/ImportInvoice.jsp").forward(request, response);
-
-        } else if ("addToCart".equals(action)) {
-            // Add ingredient to import cart
-            String ingredientIdStr = request.getParameter("ingredientId");
-            String quantityStr = request.getParameter("quantity");
-            String unitPriceStr = request.getParameter("unitPrice");
-
-            if (ingredientIdStr != null && quantityStr != null && unitPriceStr != null) {
-                try {
-                    int ingredientId = Integer.parseInt(ingredientIdStr);
-                    float quantity = Float.parseFloat(quantityStr);
-                    float unitPrice = Float.parseFloat(unitPriceStr);
-
-                    Ingredient ingredient = ingredientDAO.getIngredientById(ingredientId);
-                    if (ingredient != null) {
-                        ImportDetail detail = new ImportDetail();
-                        detail.setIngredient(ingredient);
-                        detail.setQuantity(quantity);
-                        detail.setUnitPrice(unitPrice);
-
-                        // Get or create import details list in session
-                        @SuppressWarnings("unchecked")
-                        List<ImportDetail> importDetails = (List<ImportDetail>) session.getAttribute("importDetails");
-                        if (importDetails == null) {
-                            importDetails = new ArrayList<>();
-                        }
-                        importDetails.add(detail);
-                        session.setAttribute("importDetails", importDetails);
-
-                        request.setAttribute("successMessage", "Đã thêm nguyên liệu vào danh sách");
-                    }
-                } catch (NumberFormatException e) {
-                    request.setAttribute("errorMessage", "Dữ liệu không hợp lệ");
-                }
-            }
-
-            // Load all ingredients after adding to cart
-            List<Ingredient> ingredients = ingredientDAO.searchIngredientByName("");
-            request.setAttribute("ingredients", ingredients);
-            request.setAttribute("searchKeyword", "");
-
             request.getRequestDispatcher("/warehousestaff/ImportInvoice.jsp").forward(request, response);
 
         } else {

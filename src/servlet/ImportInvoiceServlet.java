@@ -1,6 +1,7 @@
 package servlet;
 
 import dao.ImportInvoiceDAO;
+import dao.IngredientDAO;
 import model.*;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/ImportInvoiceServlet")
@@ -25,6 +27,54 @@ public class ImportInvoiceServlet extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
 
         HttpSession session = request.getSession();
+        String action = request.getParameter("action");
+
+        // Handle addToCart action (Bước 48-54 trong sequence diagram)
+        if ("addToCart".equals(action)) {
+            String ingredientIdStr = request.getParameter("ingredientId");
+            String quantityStr = request.getParameter("quantity");
+            String unitPriceStr = request.getParameter("unitPrice");
+
+            if (ingredientIdStr != null && quantityStr != null && unitPriceStr != null) {
+                try {
+                    int ingredientId = Integer.parseInt(ingredientIdStr);
+                    float quantity = Float.parseFloat(quantityStr);
+                    float unitPrice = Float.parseFloat(unitPriceStr);
+
+                    IngredientDAO ingredientDAO = new IngredientDAO();
+                    Ingredient ingredient = ingredientDAO.getIngredientById(ingredientId);
+
+                    if (ingredient != null) {
+                        // Bước 50-52: Tạo ImportDetail object
+                        ImportDetail detail = new ImportDetail();
+                        detail.setIngredient(ingredient);
+                        detail.setQuantity(quantity);
+                        detail.setUnitPrice(unitPrice);
+
+                        // Lấy hoặc tạo danh sách ImportDetail trong session
+                        @SuppressWarnings("unchecked")
+                        List<ImportDetail> importDetails = (List<ImportDetail>) session.getAttribute("importDetails");
+                        if (importDetails == null) {
+                            importDetails = new ArrayList<>();
+                        }
+                        importDetails.add(detail);
+                        session.setAttribute("importDetails", importDetails);
+
+                        request.setAttribute("successMessage", "Đã thêm nguyên liệu vào danh sách");
+                    }
+                } catch (NumberFormatException e) {
+                    request.setAttribute("errorMessage", "Dữ liệu không hợp lệ");
+                }
+            }
+
+            // Bước 53-54: Load lại danh sách ingredients và forward về ImportInvoice.jsp
+            IngredientDAO ingredientDAO = new IngredientDAO();
+            List<Ingredient> ingredients = ingredientDAO.searchIngredientByName("");
+            request.setAttribute("ingredients", ingredients);
+            request.setAttribute("searchKeyword", "");
+            request.getRequestDispatcher("/warehousestaff/ImportInvoice.jsp").forward(request, response);
+            return;
+        }
 
         // Get data from session
         Supplier supplier = (Supplier) session.getAttribute("selectedSupplier");

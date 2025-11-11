@@ -188,7 +188,7 @@
     <div id="addModal" class="modal" style="display:none;">
         <div class="modal-content">
             <h2>Thêm nguyên liệu</h2>
-            <form action="<%= request.getContextPath() %>/IngredientServlet" method="post" id="addForm">
+            <form action="<%= request.getContextPath() %>/ImportInvoiceServlet" method="post" id="addForm">
                 <input type="hidden" name="action" value="addToCart">
                 <input type="hidden" name="ingredientId" id="modalIngredientId">
 
