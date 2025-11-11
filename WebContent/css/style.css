@@ -14,7 +14,7 @@ body {
 }
 
 .container {
-    max-width: 900px;
+    max-width: 1400px;
     margin: 0 auto;
     background: white;
     border-radius: 16px;
@@ -671,23 +671,30 @@ body {
 }
 
 .cart-summary {
-    background: white;
-    padding: 20px;
+    background: #f0f4ff;
+    padding: 18px;
     border-radius: 8px;
-    margin-bottom: 20px;
+    margin: 15px 0;
+    border: 1px solid #d0d8f0;
 }
 
 .summary-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
-    color: #666;
+    margin-bottom: 12px;
+    color: #555;
+    font-size: 14px;
 }
 
 .summary-total {
-    padding-top: 15px;
-    border-top: 2px solid #e0e0e0;
+    padding-top: 12px;
+    margin-top: 8px;
+    border-top: 2px solid #667eea;
     color: #333;
+    font-size: 18px;
+}
+
+.summary-total strong {
     font-size: 20px;
 }
 
@@ -887,14 +894,26 @@ body {
         flex-direction: column;
         gap: 40px;
     }
+
+    .import-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .cart-sticky {
+        position: relative;
+        top: 0;
+        max-height: none;
+    }
 }
 
 /* Import Invoice - 2 Column Layout */
 .import-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 20px;
-    padding: 20px;
+    gap: 30px;
+    padding: 30px;
 }
 
 .import-left {
@@ -916,6 +935,7 @@ body {
     padding: 20px;
     max-height: calc(100vh - 100px);
     overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .cart-sticky h2 {
@@ -925,13 +945,13 @@ body {
 }
 
 .cart-item-compact {
-    padding: 12px;
+    padding: 15px;
     background: #f9f9f9;
     border-radius: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .cart-item-compact .cart-item-info {
@@ -941,18 +961,21 @@ body {
 .cart-item-compact strong {
     display: block;
     color: #333;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
+    font-size: 15px;
 }
 
 .cart-item-compact span {
-    font-size: 12px;
+    font-size: 13px;
     color: #666;
+    display: block;
 }
 
 .cart-item-price {
     font-weight: bold;
     color: #667eea;
-    font-size: 14px;
+    font-size: 16px;
+    text-align: right;
 }
 
 .cart-empty {
