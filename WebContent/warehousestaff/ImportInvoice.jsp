@@ -74,6 +74,7 @@
                 </div>
 
                 <%
+                    String searchKeyword = (String) request.getAttribute("searchKeyword");
                     if (ingredients != null && !ingredients.isEmpty()) {
                         int itemsPerPage = 5;
                         int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
@@ -107,15 +108,15 @@
                 <% if (totalPages > 1) { %>
                 <div class="pagination">
                     <% if (currentPage > 1) { %>
-                    <a href="?page=<%= currentPage - 1 %>" class="page-btn">← Trước</a>
+                    <a href="?<%= searchKeyword != null ? "action=search&ingredientName=" + searchKeyword + "&" : "" %>page=<%= currentPage - 1 %>" class="page-btn">← Trước</a>
                     <% } %>
 
                     <% for (int i = 1; i <= totalPages; i++) { %>
-                        <a href="?page=<%= i %>" class="page-btn <%= i == currentPage ? "active" : "" %>"><%= i %></a>
+                        <a href="?<%= searchKeyword != null ? "action=search&ingredientName=" + searchKeyword + "&" : "" %>page=<%= i %>" class="page-btn <%= i == currentPage ? "active" : "" %>"><%= i %></a>
                     <% } %>
 
                     <% if (currentPage < totalPages) { %>
-                    <a href="?page=<%= currentPage + 1 %>" class="page-btn">Sau →</a>
+                    <a href="?<%= searchKeyword != null ? "action=search&ingredientName=" + searchKeyword + "&" : "" %>page=<%= currentPage + 1 %>" class="page-btn">Sau →</a>
                     <% } %>
                 </div>
                 <% } %>

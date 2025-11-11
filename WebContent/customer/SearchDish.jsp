@@ -49,14 +49,21 @@
             String searchKeyword = (String) request.getAttribute("searchKeyword");
 
             if (dishes != null && !dishes.isEmpty()) {
+                int itemsPerPage = 5;
+                int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+                int totalItems = dishes.size();
+                int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
+                int startIndex = (currentPage - 1) * itemsPerPage;
+                int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
         %>
         <div class="results-header">
-            <p>Tìm thấy <%= dishes.size() %> kết quả</p>
+            <p>Tìm thấy <%= totalItems %> kết quả (Trang <%= currentPage %>/<%= totalPages %>)</p>
         </div>
 
         <div class="dish-list">
             <%
-                for (Dish dish : dishes) {
+                for (int i = startIndex; i < endIndex; i++) {
+                    Dish dish = dishes.get(i);
             %>
             <a href="<%= request.getContextPath() %>/SearchDishServlet?action=viewDetail&dishId=<%= dish.getId() %>" class="dish-card">
                 <div class="dish-info">
@@ -72,6 +79,23 @@
                 }
             %>
         </div>
+
+        <!-- Pagination -->
+        <% if (totalPages > 1) { %>
+        <div class="pagination">
+            <% if (currentPage > 1) { %>
+            <a href="?<%= searchKeyword != null ? "action=search&dishName=" + searchKeyword + "&" : "" %>page=<%= currentPage - 1 %>" class="page-btn">← Trước</a>
+            <% } %>
+
+            <% for (int i = 1; i <= totalPages; i++) { %>
+                <a href="?<%= searchKeyword != null ? "action=search&dishName=" + searchKeyword + "&" : "" %>page=<%= i %>" class="page-btn <%= i == currentPage ? "active" : "" %>"><%= i %></a>
+            <% } %>
+
+            <% if (currentPage < totalPages) { %>
+            <a href="?<%= searchKeyword != null ? "action=search&dishName=" + searchKeyword + "&" : "" %>page=<%= currentPage + 1 %>" class="page-btn">Sau →</a>
+            <% } %>
+        </div>
+        <% } %>
         <%
             } else if (searchKeyword != null && !searchKeyword.isEmpty()) {
         %>

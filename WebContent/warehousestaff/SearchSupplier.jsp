@@ -51,14 +51,21 @@
             String searchKeyword = (String) request.getAttribute("searchKeyword");
 
             if (suppliers != null && !suppliers.isEmpty()) {
+                int itemsPerPage = 5;
+                int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+                int totalItems = suppliers.size();
+                int totalPages = (int) Math.ceil((double) totalItems / itemsPerPage);
+                int startIndex = (currentPage - 1) * itemsPerPage;
+                int endIndex = Math.min(startIndex + itemsPerPage, totalItems);
         %>
         <div class="results-header">
-            <p>Tìm thấy <%= suppliers.size() %> nhà cung cấp</p>
+            <p>Tìm thấy <%= totalItems %> nhà cung cấp (Trang <%= currentPage %>/<%= totalPages %>)</p>
         </div>
 
         <div class="supplier-list">
             <%
-                for (Supplier supplier : suppliers) {
+                for (int i = startIndex; i < endIndex; i++) {
+                    Supplier supplier = suppliers.get(i);
             %>
             <a href="<%= request.getContextPath() %>/SupplierServlet?action=select&supplierId=<%= supplier.getId() %>" class="supplier-card">
                 <div class="supplier-info">
@@ -72,6 +79,23 @@
                 }
             %>
         </div>
+
+        <!-- Pagination -->
+        <% if (totalPages > 1) { %>
+        <div class="pagination">
+            <% if (currentPage > 1) { %>
+            <a href="?<%= searchKeyword != null ? "action=search&supplierName=" + searchKeyword + "&" : "" %>page=<%= currentPage - 1 %>" class="page-btn">← Trước</a>
+            <% } %>
+
+            <% for (int i = 1; i <= totalPages; i++) { %>
+                <a href="?<%= searchKeyword != null ? "action=search&supplierName=" + searchKeyword + "&" : "" %>page=<%= i %>" class="page-btn <%= i == currentPage ? "active" : "" %>"><%= i %></a>
+            <% } %>
+
+            <% if (currentPage < totalPages) { %>
+            <a href="?<%= searchKeyword != null ? "action=search&supplierName=" + searchKeyword + "&" : "" %>page=<%= currentPage + 1 %>" class="page-btn">Sau →</a>
+            <% } %>
+        </div>
+        <% } %>
         <%
             } else if (searchKeyword != null && !searchKeyword.isEmpty()) {
         %>
