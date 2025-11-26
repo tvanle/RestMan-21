@@ -97,7 +97,7 @@
                             <h3><%= ingredient.getName() %></h3>
                             <p><%= String.format("%,d", (int)ingredient.getUnitPrice()) %>đ/<%= ingredient.getContent() %></p>
                         </div>
-                        <button type="button" class="btn-add" onclick="showAddModal(<%= ingredient.getId() %>, '<%= ingredient.getName() %>', <%= ingredient.getUnitPrice() %>)">+</button>
+                        <button type="button" class="btn-add" onclick="showAddModal(<%= ingredient.getId() %>, '<%= ingredient.getName().replace("'", "\\\\'") %>', <%= ingredient.getUnitPrice() %>)">+</button>
                     </div>
                     <%
                         }
@@ -136,6 +136,7 @@
                     <%
                         if (importDetails != null && !importDetails.isEmpty()) {
                             float subtotal = 0;
+                            int index = 0;
                             for (ImportDetail detail : importDetails) {
                                 subtotal += detail.getTotalPrice();
                     %>
@@ -144,11 +145,17 @@
                             <strong><%= detail.getIngredient().getName() %></strong>
                             <span><%= detail.getQuantity() %> <%= detail.getIngredient().getContent() %> × <%= String.format("%,d", (int)detail.getUnitPrice()) %>đ</span>
                         </div>
-                        <div class="cart-item-price">
-                            <%= String.format("%,d", (int)detail.getTotalPrice()) %>đ
+                        <div class="cart-item-actions">
+                            <span class="cart-item-price"><%= String.format("%,d", (int)detail.getTotalPrice()) %>đ</span>
+                            <form action="<%= request.getContextPath() %>/ImportInvoiceServlet" method="post" style="display: inline;">
+                                <input type="hidden" name="action" value="removeItem">
+                                <input type="hidden" name="itemIndex" value="<%= index %>">
+                                <button type="submit" class="btn-remove" onclick="return confirm('Xóa nguyên liệu này?')">×</button>
+                            </form>
                         </div>
                     </div>
                     <%
+                                index++;
                         }
                         float vat = subtotal * 0.1f;
                         float total = subtotal + vat;
@@ -171,6 +178,10 @@
 
                     <form action="<%= request.getContextPath() %>/ImportInvoiceServlet" method="post">
                         <button type="submit" class="btn-primary btn-full">Xác nhận</button>
+                    </form>
+                    <form action="<%= request.getContextPath() %>/ImportInvoiceServlet" method="post" style="margin-top: 10px;">
+                        <input type="hidden" name="action" value="clearCart">
+                        <button type="submit" class="btn-secondary btn-full" onclick="return confirm('Bạn có chắc muốn xóa tất cả nguyên liệu?')">Xóa tất cả</button>
                     </form>
                     <%
                         } else {

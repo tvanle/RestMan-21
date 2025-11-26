@@ -29,6 +29,35 @@ public class ImportInvoiceServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String action = request.getParameter("action");
 
+        // Handle removeItem action - Xóa 1 nguyên liệu khỏi giỏ hàng
+        if ("removeItem".equals(action)) {
+            String itemIndexStr = request.getParameter("itemIndex");
+            if (itemIndexStr != null) {
+                try {
+                    int itemIndex = Integer.parseInt(itemIndexStr);
+                    @SuppressWarnings("unchecked")
+                    List<ImportDetail> importDetails = (List<ImportDetail>) session.getAttribute("importDetails");
+                    if (importDetails != null && itemIndex >= 0 && itemIndex < importDetails.size()) {
+                        importDetails.remove(itemIndex);
+                        session.setAttribute("importDetails", importDetails);
+                    }
+                } catch (NumberFormatException e) {
+                    // Invalid index
+                }
+            }
+            // Redirect về IngredientServlet để load lại trang
+            response.sendRedirect(request.getContextPath() + "/IngredientServlet");
+            return;
+        }
+
+        // Handle clearCart action - Xóa tất cả giỏ hàng
+        if ("clearCart".equals(action)) {
+            session.removeAttribute("importDetails");
+            session.removeAttribute("importInvoice");
+            response.sendRedirect(request.getContextPath() + "/SupplierServlet");
+            return;
+        }
+
         // Handle addToCart action (Bước 48-54 trong sequence diagram)
         if ("addToCart".equals(action)) {
             String ingredientIdStr = request.getParameter("ingredientId");
